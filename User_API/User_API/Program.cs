@@ -1,5 +1,6 @@
-
+﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using User_API.Data;
 
 namespace User_API
@@ -15,9 +16,29 @@ namespace User_API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+			builder.Services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "User API", Version = "v1" });
+
+				c.AddServer(new OpenApiServer
+				{
+					Url = "https://localhost:44363" // ✅ pontos base URL
+				});
+			});
+
+
 			builder.Services.AddDbContext<ApiContext>(o =>
 o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowAngularFrontend",
+					policy => policy
+						.WithOrigins("http://localhost:4200") 
+						.AllowAnyHeader()
+						.AllowAnyMethod());
+			});
 
 			var app = builder.Build();
 
@@ -28,7 +49,9 @@ o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+			app.UseCors("AllowAngularFrontend");  
+
+			app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
