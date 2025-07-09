@@ -1,21 +1,21 @@
-﻿
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using User_API.Data;
 
 namespace User_API
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+			// Add services to the container.
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddControllers();
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			builder.Services.AddEndpointsApiExplorer();
 
 			builder.Services.AddSwaggerGen(c =>
 			{
@@ -23,7 +23,7 @@ namespace User_API
 
 				c.AddServer(new OpenApiServer
 				{
-					Url = "https://localhost:44363" 
+					Url = "https://localhost:44318"
 				});
 			});
 
@@ -35,30 +35,30 @@ o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 			{
 				options.AddPolicy("AllowAngularFrontend",
 					policy => policy
-						.WithOrigins("http://localhost:4200") 
+						.WithOrigins("http://localhost:4200")
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});
 
 			var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
 
-			app.UseCors("AllowAngularFrontend");  
+			app.UseCors("AllowAngularFrontend");
 
 			app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+			app.UseAuthorization();
 
 
-            app.MapControllers();
+			app.MapControllers();
 
-            app.Run();
-        }
-    }
+			app.Run();
+		}
+	}
 }

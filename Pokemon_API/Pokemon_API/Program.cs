@@ -19,7 +19,7 @@ namespace User_API
 
 			builder.Services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "User API", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pokemon API", Version = "v1" });
 
 				c.AddServer(new OpenApiServer
 				{
