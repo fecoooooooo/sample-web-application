@@ -23,7 +23,7 @@ namespace User_API
 
 				c.AddServer(new OpenApiServer
 				{
-					Url = "https://localhost:44363" // ✅ pontos base URL
+					Url = "https://localhost:44363" 
 				});
 			});
 
