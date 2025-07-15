@@ -4,8 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "user_api": "StartDebugging",
         "pokemon_api": "StartDebugging",
+        "user_api": "StartDebugging"
       }
     }
   }
