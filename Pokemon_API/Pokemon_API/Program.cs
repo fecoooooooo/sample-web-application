@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Pokemon_API.Extensions;
 using User_API.Data;
 
 namespace User_API
@@ -23,23 +24,23 @@ namespace User_API
 
 				c.AddServer(new OpenApiServer
 				{
-					Url = "https://localhost:44336"
+					Url = "https://localhost:8081"
 				});
 			});
 
 
 			builder.Services.AddDbContext<ApiContext>(o =>
-o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+				o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 			builder.Services.AddCors(options =>
 			{
-				options.AddPolicy("AllowAngularFrontend",
+				options.AddPolicy("AllowMultipleOrigins",
 					policy => policy
-						.WithOrigins("http://localhost:4200")
+						.WithOrigins("http://localhost:4200", "https://localhost:8081")
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});
-
+			
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -47,9 +48,10 @@ o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
+				app.ApplyMigrations();
 			}
 
-			app.UseCors("AllowAngularFrontend");
+			app.UseCors("AllowMultipleOrigins");
 
 			app.UseHttpsRedirection();
 

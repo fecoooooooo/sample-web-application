@@ -1,0 +1,21 @@
+services:
+  pokemon_api:
+    image: ${DOCKER_REGISTRY-}pokemonapi
+    build:
+      context: .
+      dockerfile: Pokemon_API/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+  pokemon.database:
+    image: postgres:latest
+    container_name: pokemon.database
+    environment:
+      - POSTGRES_DB=pokemon
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/database:/var/lib/postgresql/data #igy mentjuk az adatokat 2 docker inditas kozott
+    ports:
+      - 5434:5432
+  
