@@ -18,4 +18,11 @@ services:
       - ./.containers/database:/var/lib/postgresql/data #igy mentjuk az adatokat 2 docker inditas kozott
     ports:
       - 5434:5432
-  
+  user_api:
+    image: ${DOCKER_REGISTRY-}userapi
+    build:
+      context: .
+      dockerfile: User_API/Dockerfile
+    ports:
+      - "8082:8080"
+      - "8083:8081"

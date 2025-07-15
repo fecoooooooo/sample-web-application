@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokemon_API", "Pokemon_API\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User_API", "User_API\User_API\User_API.csproj", "{06CD9CE1-7BC9-5FD0-DD3C-ABACD5A69466}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User_API", "User_API\User_API.csproj", "{0B9EDF2F-B094-4D51-B8C4-B34387FAB6E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06CD9CE1-7BC9-5FD0-DD3C-ABACD5A69466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06CD9CE1-7BC9-5FD0-DD3C-ABACD5A69466}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06CD9CE1-7BC9-5FD0-DD3C-ABACD5A69466}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06CD9CE1-7BC9-5FD0-DD3C-ABACD5A69466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B9EDF2F-B094-4D51-B8C4-B34387FAB6E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B9EDF2F-B094-4D51-B8C4-B34387FAB6E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B9EDF2F-B094-4D51-B8C4-B34387FAB6E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B9EDF2F-B094-4D51-B8C4-B34387FAB6E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
