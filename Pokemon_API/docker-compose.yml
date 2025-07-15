@@ -5,11 +5,10 @@ services:
       context: .
       dockerfile: Pokemon_API/Dockerfile
     ports:
-      - "8080:8080"
+      #- "8080:8080"
       - "8081:8081"
   pokemon.database:
     image: postgres:latest
-    container_name: pokemon.database
     environment:
       - POSTGRES_DB=pokemon
       - POSTGRES_USER=postgres
@@ -24,5 +23,5 @@ services:
       context: .
       dockerfile: User_API/Dockerfile
     ports:
-      - "8082:8082"
+      #- "8082:8082"
       - "8083:8083"
