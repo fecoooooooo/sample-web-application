@@ -5,5 +5,6 @@ namespace Pokemon_API.Repository
 {
 	public interface IPokemonRepository : IRepositoryBase<Pokemon>
 	{
+		Task<Dictionary<string, List<string>>> GetGroupedByType();
 	}
 }

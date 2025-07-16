@@ -26,18 +26,26 @@ namespace User_API.Controllers
 		[HttpGet("")]
 		public async Task<IActionResult> GetAllPokemons()
 		{
-			var result = await repository.FindAll();
-			result = result.OrderBy(x => x.Id).ToList();
+			var allPokemon = await repository.FindAll();
+			allPokemon = allPokemon.OrderBy(x => x.Id).ToList();
 
-			return Ok(result);
+			return Ok(allPokemon);
 		}
 
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetPokemonById(int id)
 		{
-			var result = await repository.FindById(id);
+			var pokemon = await repository.FindById(id);
 
-			return Ok(result);
+			return Ok(pokemon);
+		}
+
+		[HttpGet("list-by-type")]
+		public async Task<IActionResult> GetPokemonsByType()
+		{
+			var grouped = await repository.GetGroupedByType();
+
+			return Ok(grouped);
 		}
 
 		[HttpPost("")]
