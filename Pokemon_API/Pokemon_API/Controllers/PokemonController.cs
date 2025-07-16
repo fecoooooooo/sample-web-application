@@ -24,6 +24,7 @@ namespace User_API.Controllers
 		}
 
 		[HttpGet("")]
+		[ProducesResponseType(typeof(List<Pokemon>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAllPokemons()
 		{
 			var allPokemon = await repository.FindAll();
@@ -33,6 +34,8 @@ namespace User_API.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[ProducesResponseType(typeof(Pokemon), StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> GetPokemonById(int id)
 		{
 			var pokemon = await repository.FindById(id);
@@ -44,6 +47,7 @@ namespace User_API.Controllers
 		}
 
 		[HttpGet("list-by-type")]
+		[ProducesResponseType(typeof(IEnumerable<Dictionary<string, List<string>>>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetPokemonsByType()
 		{
 			var grouped = await repository.GetGroupedByType();
@@ -52,6 +56,8 @@ namespace User_API.Controllers
 		}
 
 		[HttpPost("")]
+		[ProducesResponseType(typeof(Pokemon), StatusCodes.Status201Created)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto dto)
 		{
 			Pokemon entity = mapper.Map<Pokemon>(dto);
@@ -61,6 +67,8 @@ namespace User_API.Controllers
 		}
 
 		[HttpPut("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
 		{
 			var entityToUpdate = await repository.FindById(id);
@@ -76,6 +84,8 @@ namespace User_API.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> DeletePokemon(int id)
 		{
 			var pokemonToDelete = await repository.FindById(id);
