@@ -6,6 +6,6 @@
 		Task<T?> FindById(int id);
 		Task Create(T entity);
 		Task Update(T entity);
-		Task Delete(T entity);
+		Task Delete(int entity);
 	}
 }

@@ -43,10 +43,15 @@ namespace Shared.Repository
 			await context.SaveChangesAsync();
 		}
 
-		public async Task Delete(T entity)
+		public async Task Delete(int id)
 		{
-			context.Set<T>().Remove(entity);
-			await context.SaveChangesAsync();
+			T? entityToDelete = await FindById(id);
+
+			if (entityToDelete != null)
+			{
+				context.Set<T>().Remove(entityToDelete);
+				await context.SaveChangesAsync();
+			}
 		}
 	}
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Pokemon_API.DTO;
 using Pokemon_API.Repository;
 using Shared.Models;
 using Shared.Repository;
+using System.Threading.Tasks;
 using User_API.Data;
 
 namespace User_API.Controllers
@@ -19,39 +21,43 @@ namespace User_API.Controllers
 			this.repository = repository;
 		}
 
-		[HttpGet("GetPokemons")]
-		public async Task<IActionResult> GetPokemons()
+		[HttpGet("")]
+		public async Task<IActionResult> GetAllPokemons()
 		{
 			var result = await repository.FindAll();
 
 			return Ok(result);
 		}
 
-		/*[HttpPost("CreatePokemon")]
-		public IActionResult CreatePokemon([FromBody] Pokemon pokemon)
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetPokemonById(int id)
 		{
-			_context.Pokemon.Add(pokemon);
-			_context.SaveChanges();
+			var result = await repository.FindById(id);
 
-			return Ok(pokemon);
+			return Ok(result);
 		}
 
-		[HttpPut("EditPokemon")]
-		public async Task<IActionResult> EditPokemon([FromBody] Pokemon pokemon)
+		[HttpPost("")]
+		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto pokemonDto)
 		{
-			var rows = await _context.Pokemon.Where(p => p.Id == pokemon.Id).ExecuteUpdateAsync(x => 
-				x.SetProperty(x => x.Name, pokemon.Name).SetProperty(x => x.Type, pokemon.Type)
-			);
-
-			return Ok(pokemon);
-		}
-
-		[HttpDelete("DeletePokemon")]
-		public async Task<IActionResult> DeletePokemon(int id)
-		{
-			var rows = await _context.Pokemon.Where(p => p.Id == id).ExecuteDeleteAsync();
+			await repository.Create(new Pokemon { Name = pokemonDto.Name, Type = pokemonDto.Type});
 
 			return Ok(true);
-		}*/
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] Pokemon pokemon)
+		{
+			repository.Update(pokemon);
+			return Ok(pokemon);
+		}
+
+		[HttpDelete("id")]
+		public async Task<IActionResult> DeletePokemon(int id)
+		{
+			await repository.Delete(id);
+
+			return Ok(true);
+		}
 	}
 }
