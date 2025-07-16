@@ -37,6 +37,9 @@ namespace User_API.Controllers
 		{
 			var pokemon = await repository.FindById(id);
 
+			if (pokemon == null)
+				return NotFound();
+
 			return Ok(pokemon);
 		}
 
@@ -54,30 +57,34 @@ namespace User_API.Controllers
 			Pokemon entity = mapper.Map<Pokemon>(dto);
 			await repository.Create(entity);
 
-			return Ok(true);
+			return CreatedAtAction(nameof(GetPokemonById), new { id = entity.Id }, entity);
 		}
 
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
 		{
 			var entityToUpdate = await repository.FindById(id);
+
+			if (entityToUpdate == null)
+				return NotFound(new { message = $"Pokemon with ID {id} not found." });
+
+			mapper.Map(dto, entityToUpdate);
+
+			await repository.Update(entityToUpdate);
 			
-			if (entityToUpdate != null)
-			{
-				mapper.Map(dto, entityToUpdate);
-
-				await repository.Update(entityToUpdate);
-			}
-
-			return Ok(true);
+			return NoContent();
 		}
 
-		[HttpDelete("id")]
+		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeletePokemon(int id)
 		{
+			var pokemonToDelete = await repository.FindById(id);
+			if(pokemonToDelete == null)
+				return NotFound(new { message = $"Pokemon with ID {id} not found." });
+
 			await repository.Delete(id);
 
-			return Ok(true);
+			return NoContent();
 		}
 	}
 }
