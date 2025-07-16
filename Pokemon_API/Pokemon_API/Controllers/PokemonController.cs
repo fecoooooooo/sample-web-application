@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Pokemon_API.Repository;
+using Shared.Models;
+using Shared.Repository;
 using User_API.Data;
-using User_API.Models;
 
 namespace User_API.Controllers
 {
@@ -10,27 +12,22 @@ namespace User_API.Controllers
 	[ApiController]
 	public class PokemonController : ControllerBase
 	{
-		private readonly ApiContext _context;
+		private readonly IPokemonRepository repository;
 
-		public PokemonController(ApiContext context)
+		public PokemonController(IPokemonRepository repository)
 		{
-			_context = context;
+			this.repository = repository;
 		}
 
 		[HttpGet("GetPokemons")]
 		public async Task<IActionResult> GetPokemons()
 		{
-			var result = await _context.Pokemon.Select(x => new Pokemon
-			{
-				Id = x.Id,
-				Name = x.Name,
-				Type = x.Type,
-			}).ToListAsync();
+			var result = await repository.FindAll();
 
 			return Ok(result);
 		}
 
-		[HttpPost("CreatePokemon")]
+		/*[HttpPost("CreatePokemon")]
 		public IActionResult CreatePokemon([FromBody] Pokemon pokemon)
 		{
 			_context.Pokemon.Add(pokemon);
@@ -55,6 +52,6 @@ namespace User_API.Controllers
 			var rows = await _context.Pokemon.Where(p => p.Id == id).ExecuteDeleteAsync();
 
 			return Ok(true);
-		}
+		}*/
 	}
 }

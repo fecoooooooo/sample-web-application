@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Pokemon_API.Extensions;
+using Pokemon_API.Repository;
+using Shared.Models;
+using Shared.Repository;
 using User_API.Data;
 
 namespace User_API
@@ -40,7 +43,8 @@ namespace User_API
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});
-			
+
+			builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using User_API.Models;
+using Shared.Models;
 
 namespace User_API.Data
 {
@@ -9,7 +9,7 @@ namespace User_API.Data
 
 		public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		/*protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
@@ -17,6 +17,6 @@ namespace User_API.Data
 				new Pokemon { Id = 1, Name = "Pikachu", Type = "Electric"},
 				new Pokemon { Id = 2, Name = "Charizard", Type = "Fire" }
 			);
-		}
+		}*/
 	}
 }

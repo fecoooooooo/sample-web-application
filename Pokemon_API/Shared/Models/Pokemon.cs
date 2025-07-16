@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace User_API.Models
+namespace Shared.Models
 {
 	public class Pokemon
 	{
