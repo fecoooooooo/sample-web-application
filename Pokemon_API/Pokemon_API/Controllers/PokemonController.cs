@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pokemon_API.DTO;
@@ -15,16 +16,18 @@ namespace User_API.Controllers
 	public class PokemonController : ControllerBase
 	{
 		private readonly IPokemonRepository repository;
-
-		public PokemonController(IPokemonRepository repository)
+		private readonly IMapper mapper;
+		public PokemonController(IPokemonRepository repository, IMapper mapper)
 		{
 			this.repository = repository;
+			this.mapper = mapper;
 		}
 
 		[HttpGet("")]
 		public async Task<IActionResult> GetAllPokemons()
 		{
 			var result = await repository.FindAll();
+			result = result.OrderBy(x => x.Id).ToList();
 
 			return Ok(result);
 		}
@@ -38,18 +41,27 @@ namespace User_API.Controllers
 		}
 
 		[HttpPost("")]
-		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto pokemonDto)
+		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto dto)
 		{
-			await repository.Create(new Pokemon { Name = pokemonDto.Name, Type = pokemonDto.Type});
+			Pokemon entity = mapper.Map<Pokemon>(dto);
+			await repository.Create(entity);
 
 			return Ok(true);
 		}
 
 		[HttpPut("{id}")]
-		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] Pokemon pokemon)
+		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
 		{
-			repository.Update(pokemon);
-			return Ok(pokemon);
+			var entityToUpdate = await repository.FindById(id);
+			
+			if (entityToUpdate != null)
+			{
+				mapper.Map(dto, entityToUpdate);
+
+				await repository.Update(entityToUpdate);
+			}
+
+			return Ok(true);
 		}
 
 		[HttpDelete("id")]

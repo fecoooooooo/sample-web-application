@@ -1,6 +1,8 @@
 
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Pokemon_API.DTO;
 using Pokemon_API.Extensions;
 using Pokemon_API.Repository;
 using Shared.Models;
@@ -31,6 +33,11 @@ namespace User_API
 				});
 			});
 
+			builder.Services.AddAutoMapper(cfg =>
+			{
+				cfg.CreateMap<Pokemon, PokemonDto>();
+				cfg.CreateMap<PokemonDto, Pokemon>();
+			});
 
 			builder.Services.AddDbContext<ApiContext>(o =>
 				o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
