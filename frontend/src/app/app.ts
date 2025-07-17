@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PokemonService } from '../../api/pokemon';
-import { TempUserService } from '../../api/user';
+import { UserService } from '../../api/user';
 
 @Component({
   selector: 'app-root',
@@ -14,15 +14,15 @@ export class App {
 
   constructor(
     private pokemonService: PokemonService,
-    private tempUserService: TempUserService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    this.pokemonService.apiPokemonGetPokemonsGet().subscribe((result) => {
+    this.pokemonService.apiPokemonGet().subscribe((result) => {
       console.log(result);
     });
 
-    this.tempUserService.apiTempUserGetTempUsersGet().subscribe((result) => {
+    this.userService.apiUserGet().subscribe((result) => {
       console.log(result);
     });
   }

@@ -1,5 +1,5 @@
 /**
- * User_API
+ * User API
  *
  * 
  *
@@ -12,7 +12,7 @@ import { CustomHttpParameterCodec } from './encoder';
 import { Configuration } from './configuration';
 
 export class BaseService {
-    protected basePath = 'http://localhost';
+    protected basePath = 'https://localhost:8083';
     public defaultHeaders = new HttpHeaders();
     public configuration: Configuration;
     public encoder: HttpParameterCodec;

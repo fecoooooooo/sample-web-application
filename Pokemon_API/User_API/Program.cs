@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Pokemon_API.Repository;
 using User_API.Data;
 using User_API.DTO;
@@ -19,7 +20,15 @@ namespace User_API
 			builder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			builder.Services.AddEndpointsApiExplorer();
-			builder.Services.AddSwaggerGen();
+			builder.Services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "User API", Version = "v1" });
+
+				c.AddServer(new OpenApiServer
+				{
+					Url = "https://localhost:8083"
+				});
+			});
 
 			builder.Services.AddDbContext<ApiContext>(o =>
 				o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -29,7 +38,7 @@ namespace User_API
 			{
 				options.AddPolicy("AllowMultipleOrigins",
 					policy => policy
-						.WithOrigins("http://localhost:4200", "https://localhost:8081")
+						.WithOrigins("http://localhost:4200", "https://localhost:8083")
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});
