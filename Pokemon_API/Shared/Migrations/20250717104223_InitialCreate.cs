@@ -3,6 +3,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Shared.Migrations
 {
     /// <inheritdoc />
@@ -38,6 +40,31 @@ namespace Shared.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TempUser", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Pokemon",
+                columns: new[] { "Id", "Name", "Type" },
+                values: new object[,]
+                {
+                    { 1, "Pikachu", "Electric" },
+                    { 2, "Zapdosh", "Electric" },
+                    { 3, "Charizard", "Fire" },
+                    { 4, "Arcaine", "Fire" },
+                    { 5, "Rapidash", "Fire" },
+                    { 6, "Weedle", "Bug" },
+                    { 7, "Venomoth", "Bug" },
+                    { 8, "Metapod", "Bug" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TempUser",
+                columns: new[] { "Id", "Age", "NameEN", "NameJP" },
+                values: new object[,]
+                {
+                    { 1, 10, "Ash", "Satoshi" },
+                    { 2, 11, "Misty", "Kasumi" },
+                    { 3, 11, "Brock", "Takeshi" }
                 });
         }
 

@@ -11,14 +11,26 @@ namespace User_API.Data
 
 		public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
-		/*protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<Pokemon>().HasData(
 				new Pokemon { Id = 1, Name = "Pikachu", Type = "Electric"},
-				new Pokemon { Id = 2, Name = "Charizard", Type = "Fire" }
+				new Pokemon { Id = 2, Name = "Zapdosh", Type = "Electric"},
+				new Pokemon { Id = 3, Name = "Charizard", Type = "Fire" },
+				new Pokemon { Id = 4, Name = "Arcaine", Type = "Fire" },
+				new Pokemon { Id = 5, Name = "Rapidash", Type = "Fire" },
+				new Pokemon { Id = 6, Name = "Weedle", Type = "Bug" },
+				new Pokemon { Id = 7, Name = "Venomoth", Type = "Bug" },
+				new Pokemon { Id = 8, Name = "Metapod", Type = "Bug" }
 			);
-		}*/
+
+			modelBuilder.Entity<TempUser>().HasData(
+				new TempUser { Id = 1, Age = 10, NameEN = "Ash", NameJP = "Satoshi" },
+				new TempUser { Id = 2, Age = 11, NameEN = "Misty", NameJP = "Kasumi" },
+				new TempUser { Id = 3, Age = 11, NameEN = "Brock", NameJP = "Takeshi" }
+			);
+		}	
 	}
 }
