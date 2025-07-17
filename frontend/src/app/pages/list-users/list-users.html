@@ -1,1 +1,19 @@
-<p>list-users works!</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (u of allUser; track u){
+    <tr>
+      <th scope="row">{{ u.id }}</th>
+      <td>{{ u.nameEN }}</td>
+      <td>{{ u.nameJP }}</td>
+      <td>{{ u.age }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
