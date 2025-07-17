@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Pokemon_API.Migrations
+namespace Shared.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -17,12 +17,27 @@ namespace Pokemon_API.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    Type = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pokemon", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TempUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NameEN = table.Column<string>(type: "text", nullable: true),
+                    NameJP = table.Column<string>(type: "text", nullable: true),
+                    Age = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TempUser", x => x.Id);
                 });
         }
 
@@ -31,6 +46,9 @@ namespace Pokemon_API.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Pokemon");
+
+            migrationBuilder.DropTable(
+                name: "TempUser");
         }
     }
 }

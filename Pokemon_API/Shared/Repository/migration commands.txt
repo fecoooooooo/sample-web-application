@@ -1,0 +1,5 @@
+Pokemon_API/Pokemon_API ban allva:
+	dotnet ef migrations add TempUser --project ../Shared --startup-project . --output-dir ../Pokemon_API/Migrations
+
+ugyaninn az update:
+	dotnet ef database update --project ../Shared --startup-project . --connection "Host=localhost;Port=5434;Database=pokemon;Username=postgres;Password=postgres"
