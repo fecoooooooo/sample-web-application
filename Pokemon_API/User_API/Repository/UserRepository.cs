@@ -26,11 +26,17 @@ namespace User_API.Repository
 			return true;
 		}
 
-		public async Task<List<User>> FindAllWithPokemons()
+		public override async Task<List<User>> FindAll()
 		{
 			return await context.User
 				.Include(u => u.Pokemons)
 				.ToListAsync();
 		}
+
+		public override async Task<User?> FindById(int id)
+		{
+			return await context.User.Include(u => u.Pokemons).FirstOrDefaultAsync(u => u.Id == id);
+		}
+
 	}
 }

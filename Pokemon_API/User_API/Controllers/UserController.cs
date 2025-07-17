@@ -27,7 +27,7 @@ namespace User_API.Controllers
 		[ProducesResponseType(typeof(List<User>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAllUser()
 		{
-			var allUser = await userRepository.FindAllWithPokemons();
+			var allUser = await userRepository.FindAll();
 			return Ok(allUser);
 		}
 

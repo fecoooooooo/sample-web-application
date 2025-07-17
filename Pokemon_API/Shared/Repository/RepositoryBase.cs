@@ -18,14 +18,14 @@ namespace Shared.Repository
 			this.context = context;
 		}
 
-		public async Task<T?> FindById(int id)
+		public virtual async Task<T?> FindById(int id)
 		{
 			var entity = await context.Set<T>().FindAsync(id);
 
 			return entity;
 		}
 
-		public async Task<List<T>> FindAll()
+		public virtual async Task<List<T>> FindAll()
 		{
 			var entities = await context.Set<T>().ToListAsync();
 
