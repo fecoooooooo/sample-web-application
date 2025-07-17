@@ -50,20 +50,20 @@ namespace User_API.Controllers
 		[ProducesResponseType(typeof(IEnumerable<Dictionary<string, List<string>>>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetPokemonsByType()
 		{
-			var grouped = await repository.GetGroupedByType();
+			var groupedPokemons = await repository.GetGroupedByType();
 
-			return Ok(grouped);
+			return Ok(groupedPokemons);
 		}
 
 		[HttpPost("")]
 		[ProducesResponseType(typeof(Pokemon), StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto dto)
+		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto pokemonDto)
 		{
-			Pokemon entity = mapper.Map<Pokemon>(dto);
-			await repository.Create(entity);
+			Pokemon pokemon = mapper.Map<Pokemon>(pokemonDto);
+			await repository.Create(pokemon);
 
-			return CreatedAtAction(nameof(GetPokemonById), new { id = entity.Id }, entity);
+			return CreatedAtAction(nameof(GetPokemonById), new { id = pokemon.Id }, pokemon);
 		}
 
 		[HttpPut("{id}")]
@@ -71,14 +71,14 @@ namespace User_API.Controllers
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
 		{
-			var entityToUpdate = await repository.FindById(id);
+			var pokemonToUpdate = await repository.FindById(id);
 
-			if (entityToUpdate == null)
+			if (pokemonToUpdate == null)
 				return NotFound(new { message = $"Pokemon with ID {id} not found." });
 
-			mapper.Map(dto, entityToUpdate);
+			mapper.Map(dto, pokemonToUpdate);
 
-			await repository.Update(entityToUpdate);
+			await repository.Update(pokemonToUpdate);
 			
 			return NoContent();
 		}
