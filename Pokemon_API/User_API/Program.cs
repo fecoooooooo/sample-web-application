@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using User_API.Data;
+
 namespace User_API
 {
 	public class Program
@@ -14,6 +17,19 @@ namespace User_API
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 
+			builder.Services.AddDbContext<ApiContext>(o =>
+				o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowMultipleOrigins",
+					policy => policy
+						.WithOrigins("http://localhost:4200", "https://localhost:8081")
+						.AllowAnyHeader()
+						.AllowAnyMethod());
+			});
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -22,6 +38,8 @@ namespace User_API
 				app.UseSwagger();
 				app.UseSwaggerUI();
 			}
+
+			app.UseCors("AllowMultipleOrigins");
 
 			app.UseHttpsRedirection();
 
