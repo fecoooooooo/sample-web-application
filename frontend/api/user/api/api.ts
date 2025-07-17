@@ -1,3 +1,3 @@
-export * from './tempUser.service';
-import { TempUserService } from './tempUser.service';
-export const APIS = [TempUserService];
+export * from './user.service';
+import { UserService } from './user.service';
+export const APIS = [UserService];

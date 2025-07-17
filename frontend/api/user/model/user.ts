@@ -7,11 +7,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { Pokemon } from './pokemon';
 
 
-export interface Pokemon { 
+export interface User { 
     id?: number;
-    name?: string | null;
-    type?: string | null;
+    nameEN?: string | null;
+    nameJP?: string | null;
+    age?: number;
+    pokemons?: Array<Pokemon> | null;
 }
 

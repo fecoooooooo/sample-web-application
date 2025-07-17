@@ -3,12 +3,16 @@ README.md
 api.base.service.ts
 api.module.ts
 api/api.ts
-api/tempUser.service.ts
+api/user.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
 model/models.ts
+model/pokemon.ts
+model/problemDetails.ts
+model/user.ts
+model/userDto.ts
 param.ts
 provide-api.ts
 variables.ts

@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:frontend": "node dist/frontend/server/server.mjs",
-    "generate-user-api": "curl -k https://localhost:44318/swagger/v1/swagger.json -o swagger.json && openapi-generator-cli generate -i swagger.json -g typescript-angular -o api/user",
-    "generate-pokemon-api": "curl -k https://localhost:44336/swagger/v1/swagger.json -o swagger.json && openapi-generator-cli generate -i swagger.json -g typescript-angular -o api/pokemon"
+    "generate-pokemon-api": "curl -k https://localhost:8081/swagger/v1/swagger.json -o swagger.json && openapi-generator-cli generate -i swagger.json -g typescript-angular -o api/pokemon",
+    "generate-user-api": "curl -k https://localhost:8083/swagger/v1/swagger.json -o swagger.json && openapi-generator-cli generate -i swagger.json -g typescript-angular -o api/user"
   },
   "prettier": {
     "overrides": [

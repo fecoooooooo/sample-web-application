@@ -1,5 +1,5 @@
 /**
- * User_API
+ * Pokemon API
  *
  * 
  *
@@ -9,8 +9,7 @@
  */
 
 
-export interface Pokemon { 
-    id?: number;
+export interface PokemonDto { 
     name?: string | null;
     type?: string | null;
 }

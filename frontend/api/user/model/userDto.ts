@@ -9,9 +9,9 @@
  */
 
 
-export interface Pokemon { 
-    id?: number;
-    name?: string | null;
-    type?: string | null;
+export interface UserDto { 
+    nameEN?: string | null;
+    nameJP?: string | null;
+    age?: number;
 }
 
