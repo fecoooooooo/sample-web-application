@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Models;
 using User_API.DTO;
 using User_API.Models;
 using User_API.Repository;
@@ -43,6 +44,18 @@ namespace User_API.Controllers
 		[HttpPost("")]
 		[ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
 		public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
+		{
+			User user = mapper.Map<User>(userDto);
+
+			await repository.Create(user);
+
+			return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+		}
+
+
+		[HttpPost("{id}/pokemons")]
+		[ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
+		public async Task<IActionResult> CreateUserPokemons(int id, [FromBody] List<Pokemon> pokemonsToAdd)
 		{
 			User user = mapper.Map<User>(userDto);
 
