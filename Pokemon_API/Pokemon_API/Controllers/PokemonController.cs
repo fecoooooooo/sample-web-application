@@ -67,7 +67,7 @@ namespace User_API.Controllers
 		}
 
 		[HttpPut("{id}")]
-		[ProducesResponseType(StatusCodes.Status204NoContent]
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
 		{
