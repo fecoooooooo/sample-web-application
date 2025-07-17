@@ -41,7 +41,7 @@ namespace User_API.Controllers
 			var pokemon = await repository.FindById(id);
 
 			if (pokemon == null)
-				return NotFound();
+				return NotFound(new { message = $"Pokemon with ID {id} not found." });
 
 			return Ok(pokemon);
 		}
@@ -57,7 +57,6 @@ namespace User_API.Controllers
 
 		[HttpPost("")]
 		[ProducesResponseType(typeof(Pokemon), StatusCodes.Status201Created)]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		public async Task<IActionResult> CreatePokemon([FromBody] PokemonDto pokemonDto)
 		{
 			Pokemon pokemon = mapper.Map<Pokemon>(pokemonDto);
@@ -69,15 +68,14 @@ namespace User_API.Controllers
 		[HttpPut("{id}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
-		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto dto)
+		public async Task<IActionResult> UpdatePokemon(int id, [FromBody] PokemonDto pokemonDto)
 		{
 			var pokemonToUpdate = await repository.FindById(id);
 
 			if (pokemonToUpdate == null)
 				return NotFound(new { message = $"Pokemon with ID {id} not found." });
 
-			mapper.Map(dto, pokemonToUpdate);
-
+			mapper.Map(pokemonDto, pokemonToUpdate);
 			await repository.Update(pokemonToUpdate);
 			
 			return NoContent();

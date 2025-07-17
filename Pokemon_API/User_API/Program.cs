@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
 using User_API.Data;
+using User_API.DTO;
+using User_API.Models;
+using User_API.Repository;
 
 namespace User_API
 {
@@ -29,6 +32,15 @@ namespace User_API
 						.AllowAnyHeader()
 						.AllowAnyMethod());
 			});
+
+
+			builder.Services.AddAutoMapper(cfg =>
+			{
+				cfg.CreateMap<UserDto, User>();
+				cfg.CreateMap<User, UserDto>();
+			});
+
+			builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 			var app = builder.Build();
 

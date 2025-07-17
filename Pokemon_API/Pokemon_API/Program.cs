@@ -59,7 +59,6 @@ namespace User_API
 			{
 				app.UseSwagger();
 				app.UseSwaggerUI();
-				app.ApplyMigrations();
 			}
 
 			app.UseCors("AllowMultipleOrigins");
