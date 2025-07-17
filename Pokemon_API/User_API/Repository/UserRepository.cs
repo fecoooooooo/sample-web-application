@@ -1,4 +1,5 @@
-﻿using Shared.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Shared.Models;
 using Shared.Repository;
 using User_API.Data;
 using User_API.Models;
@@ -14,13 +15,22 @@ namespace User_API.Repository
 			if(user.Pokemons == null)
 				user.Pokemons = new List<Pokemon>();
 
-			foreach(var pokemon in pokemonsToAdd)
+			foreach (var pokemon in pokemonsToAdd)
 			{
-				user.Pokemons.Add(pokemon);
+				if (!user.Pokemons.Contains(pokemon))
+					user.Pokemons.Add(pokemon);
 			}
 
+			context.Update(user);
 			await context.SaveChangesAsync();
 			return true;
+		}
+
+		public async Task<List<User>> FindAllWithPokemons()
+		{
+			return await context.User
+				.Include(u => u.Pokemons)
+				.ToListAsync();
 		}
 	}
 }

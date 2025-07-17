@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Pokemon_API.Repository;
 using User_API.Data;
 using User_API.DTO;
 using User_API.Models;
@@ -41,6 +42,7 @@ namespace User_API
 			});
 
 			builder.Services.AddScoped<IUserRepository, UserRepository>();
+			builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
 
 			var app = builder.Build();
 

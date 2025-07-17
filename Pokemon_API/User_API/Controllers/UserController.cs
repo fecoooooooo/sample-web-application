@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pokemon_API.Repository;
 using Shared.Models;
 using User_API.DTO;
 using User_API.Models;
@@ -12,11 +13,13 @@ namespace User_API.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
-		private IUserRepository repository;
+		private IUserRepository userRepository;
+		private IPokemonRepository pokemonRepository;
 		IMapper mapper;
-		public UserController(IUserRepository repository, IMapper mapper)
+		public UserController(IUserRepository userRepository, IPokemonRepository pokeomonRepository, IMapper mapper)
 		{
-			this.repository = repository;
+			this.userRepository = userRepository;
+			this.pokemonRepository = pokeomonRepository;
 			this.mapper = mapper;
 		}
 
@@ -24,7 +27,7 @@ namespace User_API.Controllers
 		[ProducesResponseType(typeof(List<User>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAllUser()
 		{
-			var allUser = await repository.FindAll();
+			var allUser = await userRepository.FindAllWithPokemons();
 			return Ok(allUser);
 		}
 
@@ -33,7 +36,7 @@ namespace User_API.Controllers
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> GetUserById(int id)
 		{
-			var user = await repository.FindById(id);
+			var user = await userRepository.FindById(id);
 
 			if (user == null)
 				return NotFound(new { message = $"User with ID {id} not found." });
@@ -47,7 +50,7 @@ namespace User_API.Controllers
 		{
 			User user = mapper.Map<User>(userDto);
 
-			await repository.Create(user);
+			await userRepository.Create(user);
 
 			return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
 		}
@@ -55,11 +58,22 @@ namespace User_API.Controllers
 
 		[HttpPost("{id}/pokemons")]
 		[ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
-		public async Task<IActionResult> CreateUserPokemons(int id, [FromBody] List<Pokemon> pokemonsToAdd)
+		public async Task<IActionResult> CreateUserPokemons(int id, [FromBody] List<int> pokemonIdsToAdd)
 		{
-			User user = mapper.Map<User>(userDto);
+			var user = await userRepository.FindById(id);
 
-			await repository.Create(user);
+			if(user == null)
+				return NotFound(new { message = $"User with ID {id} not found." });
+
+			var pokemonsToAdd = new List<Pokemon>();
+			foreach (int pid in pokemonIdsToAdd)
+			{
+				var pokemon = await pokemonRepository.FindById(pid);
+				if(pokemon != null)
+					pokemonsToAdd.Add(pokemon);
+			}
+
+			await userRepository.AddPokemonsToUser(user, pokemonsToAdd);
 
 			return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
 		}
@@ -69,12 +83,12 @@ namespace User_API.Controllers
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> UpdateUser(int id, UserDto userDto)
 		{
-			var userToUpdate = await repository.FindById(id);
+			var userToUpdate = await userRepository.FindById(id);
 			if (userToUpdate == null)
 				return NotFound(new { message = $"User with ID {id} not found." });
 
 			mapper.Map(userDto, userToUpdate);
-			await repository.Update(userToUpdate);
+			await userRepository.Update(userToUpdate);
 
 			return NoContent();
 		}
@@ -84,11 +98,11 @@ namespace User_API.Controllers
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public async Task<IActionResult> DeleteUser(int id)
 		{
-			var userToDelete = await repository.FindById(id);
+			var userToDelete = await userRepository.FindById(id);
 			if (userToDelete == null)
 				return NotFound(new { message = $"User with ID {id} not found." });
 
-			await repository.Delete(id);
+			await userRepository.Delete(id);
 			return NoContent();
 		}
 	}
