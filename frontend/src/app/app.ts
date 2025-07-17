@@ -13,18 +13,7 @@ import { Navbar } from './components/navbar/navbar';
 export class App {
   protected title = 'frontend';
 
-  constructor(
-    private pokemonService: PokemonService,
-    private userService: UserService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.pokemonService.apiPokemonGet().subscribe((result) => {
-      console.log(result);
-    });
-
-    this.userService.apiUserGet().subscribe((result) => {
-      console.log(result);
-    });
-  }
+  ngOnInit(): void {}
 }
