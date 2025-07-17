@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace User_API.Models
 {
-	public class TempUser
+	public class User
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

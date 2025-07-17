@@ -7,7 +7,7 @@ namespace User_API.Data
 	public class ApiContext : DbContext
 	{
 		public DbSet<Pokemon> Pokemon { get; set; }
-		public DbSet<TempUser> TempUser { get; set; }
+		public DbSet<User> User { get; set; }
 
 		public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
@@ -26,10 +26,10 @@ namespace User_API.Data
 				new Pokemon { Id = 8, Name = "Metapod", Type = "Bug" }
 			);
 
-			modelBuilder.Entity<TempUser>().HasData(
-				new TempUser { Id = 1, Age = 10, NameEN = "Ash", NameJP = "Satoshi" },
-				new TempUser { Id = 2, Age = 11, NameEN = "Misty", NameJP = "Kasumi" },
-				new TempUser { Id = 3, Age = 11, NameEN = "Brock", NameJP = "Takeshi" }
+			modelBuilder.Entity<User>().HasData(
+				new User { Id = 1, Age = 10, NameEN = "Ash", NameJP = "Satoshi" },
+				new User { Id = 2, Age = 11, NameEN = "Misty", NameJP = "Kasumi" },
+				new User { Id = 3, Age = 11, NameEN = "Brock", NameJP = "Takeshi" }
 			);
 		}	
 	}
