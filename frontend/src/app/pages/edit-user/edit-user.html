@@ -1,1 +1,48 @@
-<p>edit-user works!</p>
+<div class="container mt-4" style="max-width: 600px">
+  <h2>Új felhasználó létrehozása</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label for="nameEN" class="form-label">English Name</label>
+      <input
+        id="nameEN"
+        type="text"
+        formControlName="nameEN"
+        class="form-control"
+      />
+      @if (form.controls['nameEN'].invalid && form.controls['nameEN'].touched) {
+      <div class="text-danger">English name is required</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="nameEN" class="form-label">Japanese Name</label>
+      <input
+        id="nameJP"
+        type="text"
+        formControlName="nameJP"
+        class="form-control"
+      />
+      @if (form.controls['nameJP'].invalid && form.controls['nameJP'].touched) {
+      <div class="text-danger">Japanese name is required</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input
+        id="age"
+        type="number"
+        formControlName="age"
+        class="form-control"
+      />
+      @if (form.controls['nameJP'].invalid && form.controls['nameJP'].touched) {
+      <div class="text-danger">Age is required</div>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+      <i class="bi bi-check-lg me-1"></i> Mentés
+    </button>
+  </form>
+</div>

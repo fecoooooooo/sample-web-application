@@ -6,7 +6,7 @@ import { Modal } from '../../components/modal/modal';
 
 @Component({
   selector: 'app-list-users',
-  imports: [RouterModule, MatDialogModule, Modal],
+  imports: [RouterModule, MatDialogModule],
   templateUrl: './list-users.html',
   styleUrl: './list-users.scss',
 })
