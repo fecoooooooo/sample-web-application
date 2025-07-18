@@ -1,9 +1,16 @@
+<div class="d-flex justify-content-start mb-3 mt-3">
+  <a [routerLink]="['/users', 'create']" class="btn btn-success">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Type</th>
+      <th scope="col">Age</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -13,6 +20,22 @@
       <td>{{ u.nameEN }}</td>
       <td>{{ u.nameJP }}</td>
       <td>{{ u.age }}</td>
+      <td>
+        <a
+          [routerLink]="['/users', u.id]"
+          class="btn btn-sm btn-outline-primary mx-1"
+          title="Edit"
+        >
+          <i class="bi bi-pencil-fill"></i>
+        </a>
+        <a
+          class="btn btn-sm btn-outline-primary mx-1"
+          title="Delete"
+          (click)="confirmDelete(u.id)"
+        >
+          <i class="bi bi-trash-fill"></i>
+        </a>
+      </td>
     </tr>
     }
   </tbody>
