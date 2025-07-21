@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { User, UserService } from '../../../../api/user';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Modal } from '../../components/modal/modal';
+import { Modal } from '../../components/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-list-users',

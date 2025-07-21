@@ -11,8 +11,8 @@ export interface DialogData {
 @Component({
   selector: 'app-modal',
   imports: [MatDialogModule, MatButtonModule],
-  templateUrl: './modal.html',
-  styleUrl: './modal.scss',
+  templateUrl: './confirm-modal.html',
+  styleUrl: './confirm-modal.scss',
 })
 export class Modal {
   constructor(
