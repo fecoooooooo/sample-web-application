@@ -1,9 +1,15 @@
+<div class="d-flex justify-content-start mb-3 mt-3">
+  <a [routerLink]="['/pokemons', 'create']" class="btn btn-success">
+    <i class="bi bi-plus-lg"></i>
+  </a>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Type</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +18,22 @@
       <th scope="row">{{ p.id }}</th>
       <td>{{ p.name }}</td>
       <td>{{ p.type }}</td>
+      <td>
+        <a
+          [routerLink]="['/pokemons', p.id]"
+          class="btn btn-sm btn-outline-primary mx-1"
+          title="Edit"
+        >
+          <i class="bi bi-pencil-fill"></i>
+        </a>
+        <a
+          class="btn btn-sm btn-outline-primary mx-1"
+          title="Delete"
+          (click)="confirmDelete(p.id)"
+        >
+          <i class="bi bi-trash-fill"></i>
+        </a>
+      </td>
     </tr>
     }
   </tbody>

@@ -52,6 +52,8 @@ export class EditUser {
               nameJP: user.nameJP,
               age: user.age,
             });
+
+            console.log(user);
           });
         }
       }
