@@ -1,1 +1,25 @@
-<p>pokemon-select-modal works!</p>
+<mat-dialog-content>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Owned</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(p of allPokemon; track p){
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>
+          <input type="checkbox" [checked]="hasPokemon(p.id)" />
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-raised-button color="warn" (click)="onYesClick()">Yes</button>
+</mat-dialog-actions>

@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { User, UserService } from '../../../../api/user';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Modal } from '../../components/confirm-modal/confirm-modal';
+import { ConfirmModal } from '../../components/confirm-modal/confirm-modal';
+import { PokemonSelectModal } from '../../components/pokemon-select-modal/pokemon-select-modal';
+import { Pokemon } from '../../../../api/pokemon';
 
 @Component({
   selector: 'app-list-users',
@@ -24,7 +26,7 @@ export class ListUsers {
     if (id === undefined) return;
 
     this.selectedUserId = id;
-    const dialogRef = this.dialog.open(Modal, {
+    const dialogRef = this.dialog.open(ConfirmModal, {
       width: '250px',
       data: {
         title: 'Confirm delete user',
@@ -42,6 +44,11 @@ export class ListUsers {
         console.log('Cancelled');
       }
     });
+  }
+
+  getPokemonNames(pokemons: Pokemon[] | undefined | null) {
+    if (pokemons === null || pokemons === undefined) return 'asdas';
+    else return pokemons.map((p) => p.name).join(', ');
   }
 
   loadData() {

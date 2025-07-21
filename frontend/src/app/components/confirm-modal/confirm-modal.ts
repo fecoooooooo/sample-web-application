@@ -14,9 +14,9 @@ export interface DialogData {
   templateUrl: './confirm-modal.html',
   styleUrl: './confirm-modal.scss',
 })
-export class Modal {
+export class ConfirmModal {
   constructor(
-    public dialogRef: MatDialogRef<Modal>,
+    public dialogRef: MatDialogRef<ConfirmModal>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

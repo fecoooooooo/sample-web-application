@@ -41,6 +41,20 @@
       }
     </div>
 
+    <div class="mb-3">
+      <label for="age" class="form-label">Pokemons owned</label>
+      <div class="d-flex align-items-center">
+        <span>{{ getPokemonNames() }}</span>
+        <a
+          (click)="editPokemons()"
+          class="btn btn-sm btn-outline-primary mx-1"
+          title="Edit"
+        >
+          <i class="bi bi-plus-lg"></i>
+        </a>
+      </div>
+    </div>
+
     <button type="submit" class="btn btn-success" [disabled]="form.invalid">
       <i class="bi bi-check-lg me-1"></i> Save
     </button>

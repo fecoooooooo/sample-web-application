@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Pokemon, PokemonService } from '../../../../api/pokemon';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { Modal } from '../../components/confirm-modal/confirm-modal';
+import { ConfirmModal } from '../../components/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-list-pokemons',
@@ -27,7 +27,7 @@ export class ListPokemons {
     if (id === undefined) return;
 
     this.selectedPokemonId = id;
-    const dialogRef = this.dialog.open(Modal, {
+    const dialogRef = this.dialog.open(ConfirmModal, {
       width: '250px',
       data: {
         title: 'Confirm delete pokemon',

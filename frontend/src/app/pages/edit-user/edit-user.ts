@@ -7,7 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User, UserService } from '../../../../api/user';
+import { Pokemon, User, UserService } from '../../../../api/user';
+import { MatDialog } from '@angular/material/dialog';
+import { PokemonSelectModal } from '../../components/pokemon-select-modal/pokemon-select-modal';
 
 @Component({
   selector: 'app-edit-user',
@@ -19,12 +21,14 @@ export class EditUser {
   form!: FormGroup;
   isCreate: boolean = false;
   userId: number | undefined;
+  user: User | undefined;
 
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +39,7 @@ export class EditUser {
     });
 
     this.route.paramMap.subscribe((params) => {
-      const idOrAction = params.get('id'); // lehet '42' vagy 'create'
+      const idOrAction = params.get('id');
 
       if (idOrAction === 'create') {
         this.isCreate = true;
@@ -45,7 +49,7 @@ export class EditUser {
         const userId = Number(idOrAction);
         if (!isNaN(userId)) {
           this.userService.apiUserIdGet(userId).subscribe((user) => {
-            this.userId = user.id;
+            this.user = user;
 
             this.form.patchValue({
               nameEN: user.nameEN,
@@ -58,6 +62,21 @@ export class EditUser {
         }
       }
     });
+  }
+
+  editPokemons() {
+    const dialogRef = this.dialog.open(PokemonSelectModal, {
+      width: '300px',
+      data: {
+        user: this.user,
+      },
+    });
+  }
+
+  getPokemonNames() {
+    if (this.user?.pokemons === null || this.user?.pokemons === undefined)
+      return '';
+    else return this.user.pokemons.map((p) => p.name).join(', ');
   }
 
   submit(): void {
