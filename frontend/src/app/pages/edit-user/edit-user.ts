@@ -20,8 +20,8 @@ import { PokemonSelectModal } from '../../components/pokemon-select-modal/pokemo
 export class EditUser {
   form!: FormGroup;
   isCreate: boolean = false;
-  userId: number | undefined;
   user: User | undefined;
+  userId: number = -1;
 
   constructor(
     private fb: FormBuilder,
@@ -46,9 +46,9 @@ export class EditUser {
       } else {
         this.isCreate = false;
 
-        const userId = Number(idOrAction);
-        if (!isNaN(userId)) {
-          this.userService.apiUserIdGet(userId).subscribe((user) => {
+        this.userId = Number(idOrAction);
+        if (!isNaN(this.userId)) {
+          this.userService.apiUserIdGet(this.userId).subscribe((user) => {
             this.user = user;
 
             this.form.patchValue({
@@ -71,6 +71,14 @@ export class EditUser {
         user: this.user,
       },
     });
+
+    dialogRef.afterClosed().subscribe((result: Pokemon[] | null) => {
+      if (result === null) {
+        console.log('Cancelled');
+      } else {
+        this.user!.pokemons = result;
+      }
+    });
   }
 
   getPokemonNames() {
@@ -82,14 +90,14 @@ export class EditUser {
   submit(): void {
     if (this.form.invalid) return;
 
-    const userToSend = this.form.value;
+    this.user = this.form.value;
 
     if (this.isCreate) {
-      this.userService.apiUserPost(userToSend).subscribe(() => {
+      this.userService.apiUserPost(this.user).subscribe(() => {
         this.router.navigate(['/users']);
       });
     } else {
-      this.userService.apiUserIdPut(this.userId!, userToSend).subscribe(() => {
+      this.userService.apiUserIdPut(this.userId, this.user).subscribe(() => {
         this.router.navigate(['/users']);
       });
     }

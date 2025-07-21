@@ -8,6 +8,7 @@ import {
 } from '@angular/material/dialog';
 import { User } from '../../../../api/user';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 export interface PokemonSelectDialogData {
   user: User;
@@ -15,12 +16,13 @@ export interface PokemonSelectDialogData {
 
 @Component({
   selector: 'app-pokemon-select-modal',
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [MatDialogModule, MatButtonModule, FormsModule],
   templateUrl: './pokemon-select-modal.html',
   styleUrl: './pokemon-select-modal.scss',
 })
 export class PokemonSelectModal {
   allPokemon: Pokemon[] = [];
+  selectedPokemonIds: number[] = [];
 
   constructor(
     private pokemonService: PokemonService,
@@ -31,19 +33,20 @@ export class PokemonSelectModal {
   ngOnInit() {
     this.pokemonService.apiPokemonGet().subscribe((result) => {
       this.allPokemon = result;
+
+      this.selectedPokemonIds =
+        this.data.user?.pokemons?.map((p) => p.id!) ?? [];
+
+      console.log(this.selectedPokemonIds);
     });
   }
 
-  hasPokemon(pokemonId: number | undefined) {
-    if (pokemonId === undefined) {
-      return false;
+  toggleSelection(pokemonId: number) {
+    const index = this.selectedPokemonIds.indexOf(pokemonId);
+    if (index === -1) {
+      this.selectedPokemonIds.push(pokemonId);
     } else {
-      console.log(
-        pokemonId +
-          ' ' +
-          this.data.user?.pokemons?.some((p) => p.id == pokemonId)
-      );
-      return this.data.user?.pokemons?.some((p) => p.id == pokemonId) ?? false;
+      this.selectedPokemonIds.splice(index, 1);
     }
   }
 
@@ -52,6 +55,10 @@ export class PokemonSelectModal {
   }
 
   onYesClick(): void {
-    this.dialogRef.close(true);
+    console.log(this.selectedPokemonIds);
+    const selectedPokemons = this.allPokemon.filter((p) =>
+      this.selectedPokemonIds.includes(p.id!)
+    );
+    this.dialogRef.close(selectedPokemons);
   }
 }

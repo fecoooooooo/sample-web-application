@@ -1,3 +1,5 @@
+<h2 mat-dialog-title>Pokemons owned</h2>
+
 <mat-dialog-content>
   <table class="table table-striped">
     <thead>
@@ -11,7 +13,12 @@
       <tr>
         <td>{{ p.name }}</td>
         <td>
-          <input type="checkbox" [checked]="hasPokemon(p.id)" />
+          <input
+            type="checkbox"
+            [value]="p.id"
+            [checked]="selectedPokemonIds.includes(p.id!)"
+            (change)="toggleSelection(p.id!)"
+          />
         </td>
       </tr>
       }
@@ -20,6 +27,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button (click)="onNoClick()">No</button>
-  <button mat-raised-button color="warn" (click)="onYesClick()">Yes</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="warn" (click)="onYesClick()">Save</button>
 </mat-dialog-actions>
