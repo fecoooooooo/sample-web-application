@@ -17,7 +17,6 @@ import { User, UserService } from '../../../../api/user';
 })
 export class EditUser {
   form!: FormGroup;
-  idOrAction: string | null = null;
   isCreate: boolean = false;
   userId: number | undefined;
 
@@ -36,15 +35,14 @@ export class EditUser {
     });
 
     this.route.paramMap.subscribe((params) => {
-      this.idOrAction = params.get('id'); // lehet '42' vagy 'create'
-      console.log(this.idOrAction);
+      const idOrAction = params.get('id'); // lehet '42' vagy 'create'
 
-      if (this.idOrAction === 'create') {
+      if (idOrAction === 'create') {
         this.isCreate = true;
       } else {
         this.isCreate = false;
 
-        const userId = Number(this.idOrAction);
+        const userId = Number(idOrAction);
         if (!isNaN(userId)) {
           this.userService.apiUserIdGet(userId).subscribe((user) => {
             this.userId = user.id;
