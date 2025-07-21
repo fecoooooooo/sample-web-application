@@ -47,7 +47,7 @@ export class ListUsers {
   }
 
   getPokemonNames(pokemons: Pokemon[] | undefined | null) {
-    if (pokemons === null || pokemons === undefined) return 'asdas';
+    if (pokemons === null || pokemons === undefined) return '';
     else return pokemons.map((p) => p.name).join(', ');
   }
 

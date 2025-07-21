@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Pokemon, User, UserService } from '../../../../api/user';
+import { Pokemon, User, UserDto, UserService } from '../../../../api/user';
 import { MatDialog } from '@angular/material/dialog';
 import { PokemonSelectModal } from '../../components/pokemon-select-modal/pokemon-select-modal';
 
@@ -90,29 +90,21 @@ export class EditUser {
   submit(): void {
     if (this.form.invalid) return;
 
-    this.user!.nameEN = this.form.value.nameEN;
-    this.user!.nameJP = this.form.value.nameJP;
-    this.user!.age = this.form.value.age;
-
-    const pokemonIds: number[] = this.user!.pokemons!.map((p) => p.id).filter(
+    let userDto: UserDto = {};
+    userDto.nameEN = this.form.value.nameEN;
+    userDto.nameJP = this.form.value.nameJP;
+    userDto.age = this.form.value.age;
+    userDto.pokemonIds = this.user!.pokemons!.map((p) => p.id).filter(
       (id): id is number => id !== undefined
     );
 
     if (this.isCreate) {
-      this.userService.apiUserPost(this.user).subscribe(() => {
-        this.userService
-          .apiUserIdPokemonsPost(this.userId, pokemonIds)
-          .subscribe(() => {
-            this.router.navigate(['/users']);
-          });
+      this.userService.apiUserPost(userDto).subscribe(() => {
+        this.router.navigate(['/users']);
       });
     } else {
-      this.userService.apiUserIdPut(this.userId, this.user).subscribe(() => {
-        this.userService
-          .apiUserIdPokemonsPost(this.userId, pokemonIds)
-          .subscribe(() => {
-            this.router.navigate(['/users']);
-          });
+      this.userService.apiUserIdPut(this.userId, userDto).subscribe(() => {
+        this.router.navigate(['/users']);
       });
     }
   }
