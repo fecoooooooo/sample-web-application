@@ -13,5 +13,6 @@ export interface UserDto {
     nameEN?: string | null;
     nameJP?: string | null;
     age?: number;
+    pokemonIds?: Array<number> | null;
 }
 
