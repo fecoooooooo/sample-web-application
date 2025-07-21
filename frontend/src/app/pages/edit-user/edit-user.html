@@ -1,5 +1,5 @@
 <div class="container mt-4" style="max-width: 600px">
-  <h2>Új felhasználó létrehozása</h2>
+  <h2>User details</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="mb-3">
@@ -42,7 +42,7 @@
     </div>
 
     <button type="submit" class="btn btn-success" [disabled]="form.invalid">
-      <i class="bi bi-check-lg me-1"></i> Mentés
+      <i class="bi bi-check-lg me-1"></i> Save
     </button>
   </form>
 </div>

@@ -1,1 +1,35 @@
-<p>edit-pokemon works!</p>
+<div class="container mt-4" style="max-width: 600px">
+  <h2>Pokemon details</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        class="form-control"
+      />
+      @if (form.controls['name'].invalid && form.controls['name'].touched) {
+      <div class="text-danger">Name is required</div>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="type" class="form-label">Type</label>
+      <input
+        id="type"
+        type="text"
+        formControlName="type"
+        class="form-control"
+      />
+      @if (form.controls['type'].invalid && form.controls['type'].touched) {
+      <div class="text-danger">Type</div>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+      <i class="bi bi-check-lg me-1"></i> Save
+    </button>
+  </form>
+</div>
