@@ -90,15 +90,29 @@ export class EditUser {
   submit(): void {
     if (this.form.invalid) return;
 
-    this.user = this.form.value;
+    this.user!.nameEN = this.form.value.nameEN;
+    this.user!.nameJP = this.form.value.nameJP;
+    this.user!.age = this.form.value.age;
+
+    const pokemonIds: number[] = this.user!.pokemons!.map((p) => p.id).filter(
+      (id): id is number => id !== undefined
+    );
 
     if (this.isCreate) {
       this.userService.apiUserPost(this.user).subscribe(() => {
-        this.router.navigate(['/users']);
+        this.userService
+          .apiUserIdPokemonsPost(this.userId, pokemonIds)
+          .subscribe(() => {
+            this.router.navigate(['/users']);
+          });
       });
     } else {
       this.userService.apiUserIdPut(this.userId, this.user).subscribe(() => {
-        this.router.navigate(['/users']);
+        this.userService
+          .apiUserIdPokemonsPost(this.userId, pokemonIds)
+          .subscribe(() => {
+            this.router.navigate(['/users']);
+          });
       });
     }
   }

@@ -50,13 +50,22 @@ namespace User_API.Controllers
 		{
 			User user = mapper.Map<User>(userDto);
 
+			user.Pokemons = new List<Pokemon>();
+
+			foreach (int pid in userDto.PokemonIds)
+			{
+				var pokemon = await pokemonRepository.FindById(pid);
+				if (pokemon != null)
+					user.Pokemons.Add(pokemon);
+			}
+
 			await userRepository.Create(user);
 
 			return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
 		}
 
 
-		[HttpPost("{id}/pokemons")]
+		/*[HttpPost("{id}/pokemons")]
 		[ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
 		public async Task<IActionResult> CreateUserPokemons(int id, [FromBody] List<int> pokemonIdsToAdd)
 		{
@@ -76,7 +85,7 @@ namespace User_API.Controllers
 			await userRepository.AddPokemonsToUser(user, pokemonsToAdd);
 
 			return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
-		}
+		}*/
 
 		[HttpPut("{id}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -86,8 +95,18 @@ namespace User_API.Controllers
 			var userToUpdate = await userRepository.FindById(id);
 			if (userToUpdate == null)
 				return NotFound(new { message = $"User with ID {id} not found." });
-
+			
 			mapper.Map(userDto, userToUpdate);
+
+			userToUpdate.Pokemons = new List<Pokemon>();
+
+			foreach (int pid in userDto.PokemonIds)
+			{
+				var pokemon = await pokemonRepository.FindById(pid);
+				if (pokemon != null)
+					userToUpdate.Pokemons.Add(pokemon);
+			}
+
 			await userRepository.Update(userToUpdate);
 
 			return NoContent();

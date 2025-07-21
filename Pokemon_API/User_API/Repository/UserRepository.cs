@@ -12,15 +12,7 @@ namespace User_API.Repository
 
 		public async Task<bool> AddPokemonsToUser(User user, List<Pokemon> pokemonsToAdd)
 		{
-			if(user.Pokemons == null)
-				user.Pokemons = new List<Pokemon>();
-
-			foreach (var pokemon in pokemonsToAdd)
-			{
-				if (!user.Pokemons.Contains(pokemon))
-					user.Pokemons.Add(pokemon);
-			}
-
+			
 			context.Update(user);
 			await context.SaveChangesAsync();
 			return true;

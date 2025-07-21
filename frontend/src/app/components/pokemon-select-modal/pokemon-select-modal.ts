@@ -36,8 +36,6 @@ export class PokemonSelectModal {
 
       this.selectedPokemonIds =
         this.data.user?.pokemons?.map((p) => p.id!) ?? [];
-
-      console.log(this.selectedPokemonIds);
     });
   }
 
@@ -55,7 +53,6 @@ export class PokemonSelectModal {
   }
 
   onYesClick(): void {
-    console.log(this.selectedPokemonIds);
     const selectedPokemons = this.allPokemon.filter((p) =>
       this.selectedPokemonIds.includes(p.id!)
     );
