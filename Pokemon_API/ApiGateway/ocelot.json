@@ -3,7 +3,7 @@
 		//pokemon
 		{
 			"UpstreamPathTemplate": "/api/pokemon",
-			"UpstreamHttpMethod": [ "Get", "Post" ],
+			"UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
@@ -16,7 +16,7 @@
 		},
 		{
 			"UpstreamPathTemplate": "/api/pokemon/{id}",
-			"UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+			"UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
 
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
@@ -68,7 +68,7 @@
 		//user
 		{
 			"UpstreamPathTemplate": "/api/user",
-			"UpstreamHttpMethod": [ "Get", "Post" ],
+			"UpstreamHttpMethod": [ "Get", "Post", "Options" ],
 
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
@@ -81,7 +81,7 @@
 		},
 		{
 			"UpstreamPathTemplate": "/api/user/{id}",
-			"UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+			"UpstreamHttpMethod": [ "Get", "Put", "Delete", "Options" ],
 
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
