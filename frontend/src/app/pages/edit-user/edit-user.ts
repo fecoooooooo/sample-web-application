@@ -22,6 +22,7 @@ export class EditUser {
   isCreate: boolean = false;
   user: User | undefined;
   userId: number = -1;
+  pokemons: Pokemon[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -76,15 +77,13 @@ export class EditUser {
       if (result === null) {
         console.log('Cancelled');
       } else {
-        this.user!.pokemons = result;
+        this.pokemons = result;
       }
     });
   }
 
   getPokemonNames() {
-    if (this.user?.pokemons === null || this.user?.pokemons === undefined)
-      return '';
-    else return this.user.pokemons.map((p) => p.name).join(', ');
+    return this.pokemons.map((p) => p.name).join(', ');
   }
 
   submit(): void {
@@ -94,10 +93,11 @@ export class EditUser {
     userDto.nameEN = this.form.value.nameEN;
     userDto.nameJP = this.form.value.nameJP;
     userDto.age = this.form.value.age;
-    userDto.pokemonIds = this.user!.pokemons!.map((p) => p.id).filter(
+    userDto.pokemonIds = this.pokemons!.map((p) => p.id).filter(
       (id): id is number => id !== undefined
     );
 
+    console.log(this.isCreate);
     if (this.isCreate) {
       this.userService.apiUserPost(userDto).subscribe(() => {
         this.router.navigate(['/users']);
