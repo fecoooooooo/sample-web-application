@@ -25,3 +25,13 @@ services:
     ports:
       #- "8082:8082"
       - "8083:8083"
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      #- "8084:8084"
+      - "8085:8085"
+
