@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JwtAuthenticationManager\JwtAuthenticationManager.csproj" />
+    <ProjectReference Include="..\User_API\User_API.csproj" />
   </ItemGroup>
 
 </Project>

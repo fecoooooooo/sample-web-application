@@ -1,5 +1,6 @@
 
 using AutoMapper;
+using JwtAuthenticationManager;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Pokemon_API.DTO;
@@ -52,6 +53,8 @@ namespace User_API
 			});
 
 			builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+			builder.Services.AddCustomJwtAuthentication();
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
@@ -65,6 +68,7 @@ namespace User_API
 
 			app.UseHttpsRedirection();
 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 

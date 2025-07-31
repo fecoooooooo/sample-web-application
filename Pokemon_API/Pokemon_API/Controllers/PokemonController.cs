@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace User_API.Controllers
 		}
 
 		[HttpGet("")]
+		[Authorize]
 		[ProducesResponseType(typeof(List<Pokemon>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAllPokemons()
 		{
@@ -47,6 +49,7 @@ namespace User_API.Controllers
 		}
 
 		[HttpGet("list-by-type")]
+		[Authorize(Roles = "Administrator")]
 		[ProducesResponseType(typeof(IEnumerable<Dictionary<string, List<string>>>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetPokemonsByType()
 		{
