@@ -27,9 +27,9 @@ namespace User_API.Data
 			);
 
 			modelBuilder.Entity<User>().HasData(
-				new User { Id = 1, Age = 10, NameEN = "Ash", NameJP = "Satoshi" },
-				new User { Id = 2, Age = 11, NameEN = "Misty", NameJP = "Kasumi" },
-				new User { Id = 3, Age = 11, NameEN = "Brock", NameJP = "Takeshi" }
+				new User { Id = 1, Age = 10, NameEN = "Ash", NameJP = "Satoshi", UserName = "ash", Password = "admin", Role = "Administrator"},
+				new User { Id = 2, Age = 11, NameEN = "Misty", NameJP = "Kasumi", UserName = "misty", Password = "user", Role = "User" },
+				new User { Id = 3, Age = 11, NameEN = "Brock", NameJP = "Takeshi", UserName = "brock", Password = "user", Role = "User" }
 			);
 		}	
 	}

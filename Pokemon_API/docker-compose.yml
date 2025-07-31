@@ -35,3 +35,12 @@ services:
       #- "8084:8084"
       - "8085:8085"
 
+
+  authentication_api:
+    image: ${DOCKER_REGISTRY-}authenticationapi
+    build:
+      context: .
+      dockerfile: Authentication_API/Dockerfile
+    ports:
+      #- "8082:8082"
+      - "8087:8087"

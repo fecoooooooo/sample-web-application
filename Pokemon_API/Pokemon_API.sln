@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{E9E73637-72F5-42A6-99E1-22412E73ECF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtAuthenticationManager", "JwtAuthenticationManager\JwtAuthenticationManager.csproj", "{EE1275CE-EAE3-47C9-8FD7-AC0780572458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication_API", "Authentication_API\Authentication_API.csproj", "{27A7E4A9-2A8B-45A7-AAF1-C298C348C516}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{E9E73637-72F5-42A6-99E1-22412E73ECF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9E73637-72F5-42A6-99E1-22412E73ECF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9E73637-72F5-42A6-99E1-22412E73ECF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1275CE-EAE3-47C9-8FD7-AC0780572458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1275CE-EAE3-47C9-8FD7-AC0780572458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1275CE-EAE3-47C9-8FD7-AC0780572458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1275CE-EAE3-47C9-8FD7-AC0780572458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A7E4A9-2A8B-45A7-AAF1-C298C348C516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A7E4A9-2A8B-45A7-AAF1-C298C348C516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A7E4A9-2A8B-45A7-AAF1-C298C348C516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A7E4A9-2A8B-45A7-AAF1-C298C348C516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

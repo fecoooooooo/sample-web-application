@@ -1,5 +1,20 @@
 {
 	"Routes": [
+		//auth
+		{
+			"UpstreamPathTemplate": "/api/account",
+			"UpstreamHttpMethod": [ "Post", "Options" ],
+
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "authentication_api",
+					"Port": 8087
+				}
+			],
+			"DownstreamPathTemplate": "/api/account"
+		},
+
 		//pokemon
 		{
 			"UpstreamPathTemplate": "/api/pokemon",

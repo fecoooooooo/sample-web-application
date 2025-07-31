@@ -6,7 +6,8 @@
       "serviceActions": {
         "pokemon_api": "StartDebugging",
         "user_api": "StartDebugging",
-        "apigateway": "StartDebugging"
+        "apigateway": "StartDebugging",
+        "authentication_api": "StartDebugging"
       }
     }
   }
